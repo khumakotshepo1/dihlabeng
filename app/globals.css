@@ -2,20 +2,80 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+body {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 90%; /* Light gray root background */
+    --foreground: 0 0% 10%; /* Dark gray for text */
+    --card: 0 0% 100%; /* White for cards */
+    --card-foreground: 0 0% 10%; /* Match foreground for readability */
+    --popover: 0 0% 98%; /* Slightly off-white for popovers */
+    --popover-foreground: 0 0% 10%;
+    --primary: 220 15% 40%; /* Muted blue-gray for primary elements */
+    --primary-foreground: 0 0% 90%; /* White for contrast */
+    --secondary: 220 10% 70%; /* Light muted gray for secondary elements */
+    --secondary-foreground: 0 0% 10%;
+    --muted: 220 15% 85%; /* Very light gray for muted elements */
+    --muted-foreground: 0 0% 40%; /* Soft gray for muted text */
+    --accent: 220 20% 50%; /* Slightly darker gray-blue for accents */
+    --accent-foreground: 0 0% 90%;
+    --destructive: 0 62.8% 40%; /* Dim red for destructive elements */
+    --destructive-foreground: 0 0% 90%;
+    --border: 220 8% 80%; /* Subtle borders */
+    --input: 220 10% 90%; /* Very light gray for inputs */
+    --ring: 220 15% 50%; /* Ring effect for focus */
+    --chart-1: 12 76% 61%; /* Vibrant accents for charts */
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 10%; /* Dark charcoal for dark mode */
+    --foreground: 0 0% 85%; /* Softer light gray for text */
+    --card: 0 0% 15%; /* Lighter shade for cards */
+    --card-foreground: 0 0% 85%;
+    --popover: 0 0% 15%;
+    --popover-foreground: 0 0% 85%;
+    --primary: 220 13% 30%;
+    --primary-foreground: 0 0% 90%;
+    --secondary: 220 10% 20%;
+    --secondary-foreground: 0 0% 85%;
+    --muted: 220 10% 20%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 220 15% 35%;
+    --accent-foreground: 0 0% 90%;
+    --destructive: 0 62.8% 30%;
+    --destructive-foreground: 0 0% 90%;
+    --border: 220 8% 15%;
+    --input: 220 10% 20%;
+    --ring: 220 20% 40%;
+    --chart-1: 220 50% 40%;
+    --chart-2: 160 40% 35%;
+    --chart-3: 30 60% 45%;
+    --chart-4: 280 50% 50%;
+    --chart-5: 340 60% 50%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  .scrollbar-hidden {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Edge */
+  }
+
 }
