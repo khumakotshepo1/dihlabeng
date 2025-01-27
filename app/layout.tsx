@@ -3,6 +3,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/sonner";
 
 const poppins = localFont({
   src: [
@@ -163,6 +164,7 @@ export default function RootLayout({
             </div>
           </ThemeProvider>
         </body>
+        <Toaster />
       </html>
     </>
   );

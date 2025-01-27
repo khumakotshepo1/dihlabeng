@@ -1,7 +1,13 @@
-import { ComplaintsForm } from "@/components/_council/_Councillor/_Health/ComplaintsForm";
-import { HealthSchemaType } from "@/zod/zod/types/health.type";
+import { HealthComplaintsForm } from "@/components/_council/_Councillor/_Health/ComplaintsForm";
 
-const healthData: HealthSchemaType[] = [
+export type HealthProps = {
+  name: string;
+  description: string;
+  ward: number;
+}
+
+
+const healthData: HealthProps[] = [
   {
     name: "Phekolong District Hospital",
     description: "PDH is a health care facility, where the patients wellbeing is our priority",
@@ -28,7 +34,7 @@ export default async function ComplaintsPage(props: { params: Params }) {
 
   return (
     <>
-      <ComplaintsForm health={health} />
+      <HealthComplaintsForm health={health} />
     </>
   );
 }

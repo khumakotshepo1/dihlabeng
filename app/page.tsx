@@ -1,7 +1,6 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { TypographyH4 } from "@/components/typography";
 import { Card } from "@/components/ui/card";
-import { Spotlight } from "@/components/ui/spotlight";
 import { TextEffect } from "@/components/ui/text-effect";
 import Image from "next/image";
 import Link from "next/link";
