@@ -1,51 +1,47 @@
+
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { CustomInput } from "@/components/custom-input";
-import { HealthSchemaType } from "@/zod/zod/types/health.type";
-import { healthSchema } from "@/zod/zod/schemas/health.schema";
+import { CountrySelect, CustomInput } from "@/components/custom-input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Icons } from "@/components/icons";
+import { HealthProps } from "@/app/(council)/council/[councillorSlug]/health/complaints/page";
+import { HealthComplaintSchemaType } from "@/zod/zod/types/health.type";
+import { healthComplaintSchema } from "@/zod/zod/schemas/health.schema";
 
-export const ComplaintsForm = ({ health }: { health: HealthSchemaType[] }) => {
-  const form = useForm<HealthSchemaType>({
-    resolver: zodResolver(healthSchema), // Apply the zodResolver
+export const HealthComplaintsForm = ({ health }: { health: HealthProps[] }) => {
+  const form = useForm<HealthComplaintSchemaType>({
+    resolver: zodResolver(healthComplaintSchema), // Apply the zodResolver
   });
-  console.log({ health });
 
-  const { back, refresh } = useRouter();
+  const { back } = useRouter();
 
-  const processForm = async () => {
-
-    const res = await fetch("/api/health", {
+  const processForm = async (data: HealthComplaintSchemaType) => {
+    const res = await fetch("/api/health/complaint", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(form.getValues()),
+      body: JSON.stringify(data),
     });
 
-    const data = await res.json();
+    const result = await res.json();
 
-
-    if (data.error) {
-      console.log(data.error);
-      toast.error(data.error);
+    if (result.error) {
+      console.log({ error: result.error });
+      toast.error(result.error);
     }
 
-    if (data.success) {
-      console.log(data.success);
-      toast.success(data.success);
+    if (result.success) {
+      console.log({ success: result.success });
+      toast.success(result.success);
       setTimeout(() => {
-        refresh();
         back();
       }, 2000);
     }
@@ -53,36 +49,59 @@ export const ComplaintsForm = ({ health }: { health: HealthSchemaType[] }) => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(processForm)}
-        className="space-y-8 lg:w-[500px] mx-auto p-8"
-      >
-        <div className="grid gap-2">
+      <form onSubmit={form.handleSubmit(processForm)} className="space-y-8 lg:w-[500px] mx-auto p-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div className="sm:col-span-3">
+            <CustomInput
+              control={form.control}
+              name="first_name"
+              label="First Name"
+              placeholder="John"
+              type="text"
+            />
+          </div>
+          <div className="sm:col-span-3">
+            <CustomInput
+              control={form.control}
+              name="last_name"
+              label="Last Name"
+              placeholder="Doe"
+              type="text"
+            />
+          </div>
+        </div>
+        <div className="sm:col-span-3">
           <CustomInput
             control={form.control}
-            name="name"
-            label="Name"
-            placeholder="Name"
-            type="text"
+            name="email"
+            label="Email"
+            placeholder="johndoe@gmail.com"
+            type="email"
           />
         </div>
-        <div className="grid gap-2">
+        <div className="sm:col-span-3">
+          <div className="mt-2 flex items-end">
+            <CountrySelect name="code" control={form.control} label="Code" />
+            <CustomInput name="phone" control={form.control} label="Phone" placeholder="+27112223333" type="tel" />
+          </div>
+        </div>
+        <div className="sm:col-span-3">
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Health Care Name</FormLabel>
+                <FormLabel>HealthCare</FormLabel>
                 <FormControl>
                   <Select
                     onValueChange={(value) => {
-                      console.log('Selected Health ID:', value);
-                      field.onChange(value)
+                      console.log("Selected Health ID:", value);
+                      field.onChange(value);
                     }}
                     defaultValue={field.value}
                   >
                     <SelectTrigger className="w-full border-0 border-b-2 border-foreground dark:border-foreground rounded-none">
-                      <SelectValue placeholder="Select Department" />
+                      <SelectValue placeholder="Select HealthCare" />
                     </SelectTrigger>
                     <SelectContent>
                       {health.map((item) => (
@@ -99,7 +118,7 @@ export const ComplaintsForm = ({ health }: { health: HealthSchemaType[] }) => {
           />
         </div>
 
-        <div className="grid gap-2">
+        <div className="sm:col-span-3">
           <CustomInput
             control={form.control}
             name="description"
@@ -111,7 +130,7 @@ export const ComplaintsForm = ({ health }: { health: HealthSchemaType[] }) => {
 
         <div className="flex flex-col items-center justify-between gap-2">
           <Button
-            variant="secondary"
+            variant="destructive"
             disabled={form.formState.isSubmitting}
             type="submit"
             className="w-full"
@@ -119,31 +138,16 @@ export const ComplaintsForm = ({ health }: { health: HealthSchemaType[] }) => {
             {form.formState.isSubmitting ? (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              "Login"
+              "Report"
             )}
           </Button>
-        </div>
-        <div className="mt-4 text-sm flex flex-col justify-start items-start py-3 gap-4">
-          <div className="text-sm flex justify-center items-center gap-2">
-            <p>Don&apos;t have an account?</p>
-            <Link
-              aria-label="Sign up"
-              href="/auth/register"
-              className="underline font-bold"
-            >
-              Register
-            </Link>
-          </div>
-          <div className="text-sm flex justify-center items-center gap-2">
-            <p>Forgot your password?</p>
-            <Link
-              aria-label="Reset password"
-              href="/auth/reset-password"
-              className="underline font-bold"
-            >
-              Reset Password
-            </Link>
-          </div>
+          <Button
+            variant={"secondary"}
+            className="w-full"
+            onClick={() => back()} // This will trigger the back navigation
+          >
+            Back
+          </Button>
         </div>
       </form>
     </Form>

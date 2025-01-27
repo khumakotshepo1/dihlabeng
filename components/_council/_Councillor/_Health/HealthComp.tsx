@@ -1,9 +1,9 @@
 
-import { EMS } from "@/components/_council/_Councillor/_Health/EMS";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { AdmissionModal, FreeServicesModal, ReferralModal, ServicesModal } from "./HealthModal";
 
 export type HealthCompProps = {
   img: string;
@@ -27,20 +27,23 @@ export default function HealthComp({ health }: { health: HealthCompProps }) {
           />
         </div>
         {/* Card Section */}
-        <Card className="w-full h-72">
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>{health.name}</CardTitle>
             <CardDescription>
               {health.description}
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <EMS />
+          <CardContent className="flex flex-col lg:flex-row items-center justify-evenly">
+            <ServicesModal />
+            <AdmissionModal />
+            <FreeServicesModal />
+            <ReferralModal />
           </CardContent>
-          <CardFooter>
-            <Link href={health.link}>
-              <Button variant="outline" className="w-full">
-                Complaints
+          <CardFooter className="flex flex-col gap-2 justify-center">
+            <Link href={health.link} className="w-full">
+              <Button variant="destructive" className="w-full">
+                Report
               </Button>
             </Link>
           </CardFooter>
