@@ -23,7 +23,7 @@ export const HealthComplaintsForm = ({ health }: { health: HealthProps[] }) => {
   const { back } = useRouter();
 
   const processForm = async (data: HealthComplaintSchemaType) => {
-    const res = await fetch("/api/health/complaint", {
+    const res = await fetch("/api/health/complaints", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

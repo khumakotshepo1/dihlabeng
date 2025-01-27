@@ -1,4 +1,4 @@
 import { z } from "zod";
-import { healthSchema } from "../schemas/health.schema";
+import { healthComplaintSchema } from "../schemas/health.schema";
 
-export type HealthSchemaType = z.infer<typeof healthSchema>;
+export type HealthComplaintSchemaType = z.infer<typeof healthComplaintSchema>;
