@@ -1,3 +1,8 @@
+import { educationData } from "@/components/_council/_Councillor/_Education/education-api";
+import EducationComp from "@/components/_council/_Councillor/_Education/EducationComp";
+
+
 export default function EducationPage() {
-  return <div>Education</div>;
+
+  return <EducationComp schools={educationData} />
 }

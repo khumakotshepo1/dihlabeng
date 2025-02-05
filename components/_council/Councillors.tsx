@@ -148,7 +148,7 @@ export function Councillors() {
   return (
     <article className="flex flex-wrap gap-8 justify-center items-center my-24 px-3 py-6 mx-auto">
       {CouncillorsData.map((councillor) => (
-        <Link key={councillor.ward} href={`/council/${councillor.id}`}>
+        <Link key={councillor.ward} href={`/council/${councillor.id}`} className="transition-all transform hover:scale-110">
           <figure
             key={councillor.id}
             className="p-3 flex flex-col justify-center items-center"
@@ -161,7 +161,8 @@ export function Councillors() {
                 className="absolute rounded-full px-6 py-1"
                 src={councillor.img}
                 alt={councillor.name}
-                fill
+                width={200}
+                height={200}
               />
             </span>
 

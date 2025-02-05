@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "flagcdn.com",
       },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
+      {
+        protocol: "https",
+        hostname: "www.clarens.co.za",
+      },
     ],
   }
 };

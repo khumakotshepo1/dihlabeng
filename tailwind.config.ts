@@ -14,6 +14,7 @@ export default {
 		extend: {
 			backgroundImage: {
 				'townhall': 'url("/img/core/townhall.webp")',
+				"jol-hero": 'url("/img/core/jol-hero.webp")',
 			},
 			fontFamily: {
 				poppins: ['var(--font-poppins)'],
